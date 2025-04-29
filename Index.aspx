@@ -91,7 +91,7 @@
         if (data.resultado === "valido") {
           successMsg.innerText = data.mensaje || "Acceso concedido. Redirigiendo...";
           setTimeout(() => {
-            window.location.href = "https://forms.office.com/r/5SK4TVNmTu";
+            window.location.href = "https://forms.office.com/r/vQgHcKLeni";
           }, 1500);
         } else {
           successMsg.style.display = "none";
