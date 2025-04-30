@@ -15,31 +15,44 @@
     }
     .container {
       background: white;
-      padding: 30px 40px;
-      border-radius: 12px;
+      padding: 75px 40px;
+      border-radius: 25px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
       text-align: center;
-      width: 350px;
+      width: 400px;
       position: relative;
+      overflow: hidden;
     }
     .container img.logo {
       position: absolute;
-      top: 10px;
-      right: 10px;
-      width: 90px;
+      top: 20px;
+      right: 20px;
+      width: 100px;
       opacity: 75;
+    }
+    .container img.head {
+      align: justify;
+      width: 100%;
+      border: none;
+      opacity: 100;
+      margin-top: 10px;
+      margin: 0 auto;
+    }
+    directions {
+      margin-bottom: 10px;
     }
     input[type="password"] {
       padding: 12px;
       width: 220px;
-      border-radius: 6px;
+      text-align: center;
+      border-radius:30px;
       border: 1px solid #ccc;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
     }
     button {
       padding: 10px 20px;
       border: none;
-      border-radius: 6px;
+      border-radius: 50px;
       background: #0078d4;
       color: white;
       font-weight: bold;
@@ -56,7 +69,12 @@
       display: none;
     }
     .footer {
-      margin-top: 20px;
+      margin-top: 30px;
+      font-size: 12px;
+      color: #888;
+      margin-bottom: 5px;
+    }
+    .footer1 {
       font-size: 12px;
       color: #888;
     }
@@ -65,16 +83,16 @@
 <body>
   <div class="container">
     <img src="Logo MBT Plus.png" alt="Mainbit Logo" class="logo">
-    <h2>Bienvenido</h2>
-    <h1>Proceso de Reclutamiento</h1>
-    <br />
-    <p>Por favor, ingresa tu clave de acceso:</p>
+    <img src="Welcome.jpg" alt="Welcome" class="head">
+    <h2>Proceso de Reclutamiento</h2>
+    <p class="directions">Por favor, ingresa tu clave de acceso:</p>
     <input type="password" id="claveInput" placeholder="Clave de acceso" />
     <br />
     <button onclick="validarClave()">Acceder al Formulario</button>
     <p id="mensajeError" class="error">Error en la validación.</p>
     <p id="mensajeSuccess" class="success">Validando clave...</p>
-    <p class="footer">¿No tienes una clave? Contáctanos en <a href="mailto:atraccion_talento@mainbit.com.mx">atraccion_talento@mainbit.com.mx</a></p>
+    <p class="footer">¿No tienes una clave?</p>
+    <p class="footer1"> Contáctanos en: <a href="mailto:atraccion_talento@mainbit.com.mx">atraccion_talento@mainbit.com.mx</a></p>
   </div>
 
   <script>
