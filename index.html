@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Validación de Acceso</title>
+  <title>Reclutamiento - Validación de Acceso</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -55,18 +55,24 @@
       margin-top: 10px;
       display: none;
     }
+    .footer {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #888;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <img src="Logo MBT Plus.png" alt="Mainbit Logo" class="logo">
-    <h2>Bienvenido</h2>
-    <p>Ingresa tu clave de acceso:</p>
+    <h2>Bienvenido al Proceso de Reclutamiento</h2>
+    <p>Por favor, ingresa tu clave de acceso:</p>
     <input type="password" id="claveInput" placeholder="Clave de acceso" />
     <br />
-    <button onclick="validarClave()">Validar clave</button>
+    <button onclick="validarClave()">Acceder al Formulario</button>
     <p id="mensajeError" class="error">Error en la validación.</p>
     <p id="mensajeSuccess" class="success">Validando clave...</p>
+    <p class="footer">¿No tienes una clave? Contáctanos en <a href="mailto:atraccion_talento@mainbit.com.mx">atraccion_talento@mainbit.com.mx</a></p>
   </div>
 
   <script>
@@ -106,7 +112,7 @@
         return res.json();
       })
       .then(data => {
-        successMsg.innerText = "Acceso concedido. Redirigiendo...";
+        successMsg.innerText = "Clave correcta, Acceso concedido. Redirigiendo...";
         setTimeout(() => {
           window.location.href = data.url; // Redirigir al formulario devuelto por el backend
         }, 1500);
