@@ -70,29 +70,34 @@
   </div>
 
   <script>
+    // Función que valida la clave ingresada por el usuario
     function validarClave() {
-      const clave = document.getElementById("claveInput").value;
-      const errorMsg = document.getElementById("mensajeError");
-      const successMsg = document.getElementById("mensajeSuccess");
+      const clave = document.getElementById("claveInput").value; // Capturar la clave ingresada
+      const errorMsg = document.getElementById("mensajeError"); // Mensaje de error
+      const successMsg = document.getElementById("mensajeSuccess"); // Mensaje de éxito
 
+      // Ocultar mensajes previos
       errorMsg.style.display = "none";
       successMsg.style.display = "none";
 
+      // Validar si el campo de clave está vacío
       if (!clave) {
         errorMsg.innerText = "Por favor, ingresa una clave.";
         errorMsg.style.display = "block";
         return;
       }
 
+      // Mostrar mensaje de validación en progreso
       successMsg.style.display = "block";
       successMsg.innerText = "Validando clave...";
 
-      fetch("https://mbt-app.vercel.app/api/redirect", {
+      // Enviar la solicitud al backend
+      fetch("https://mbt-app.vercel.app/api/redirect", { // Ruta del backend
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ clave: clave })
+        body: JSON.stringify({ clave: clave }) // Enviar la clave como JSON
       })
       .then(res => {
         if (!res.ok) {
@@ -103,7 +108,7 @@
       .then(data => {
         successMsg.innerText = "Acceso concedido. Redirigiendo...";
         setTimeout(() => {
-          window.location.href = data.url;
+          window.location.href = data.url; // Redirigir al formulario devuelto por el backend
         }, 1500);
       })
       .catch(err => {
