@@ -1,137 +1,143 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Reclutamiento - Validación de Acceso</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f4f6f8;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
-    .container {
-      background: white;
-      padding: 75px 40px;
-      border-radius: 25px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      width: 400px;
-      position: relative;
-      overflow: hidden;
-    }
-    .container img.logo {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      width: 100px;
-      opacity: 75;
-    }
-    .container img.head {
-      align: justify;
-      width: 100%;
-      border: none;
-      opacity: 100;
-      margin-top: 10px;
-      margin: 0 auto;
-    }
-    directions {
-      margin-bottom: 10px;
-    }
-    input[type="password"] {
-      padding: 12px;
-      width: 220px;
-      text-align: center;
-      border-radius:30px;
-      border: 1px solid #ccc;
-      margin-bottom: 20px;
-    }
-    button {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 50px;
-      background: #0078d4;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .error {
-      color: red;
-      margin-top: 10px;
-      display: none;
-    }
-    .success {
-      color: green;
-      margin-top: 10px;
-      display: none;
-    }
-    .footer {
-      margin-top: 30px;
-      font-size: 12px;
-      color: #888;
-      margin-bottom: 5px;
-    }
-    .footer1 {
-      font-size: 12px;
-      color: #888;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <img src="Logo MBT Plus.png" alt="Mainbit Logo" class="logo">
-    <img src="Welcome.jpg" alt="Welcome" class="head">
-    <h2>Proceso de Reclutamiento</h2>
-    <p class="directions">Por favor, ingresa tu clave de acceso:</p>
-    <input type="password" id="claveInput" placeholder="Clave de acceso" />
-    <br />
-    <button onclick="validarClave()">Acceder al Formulario</button>
-    <p id="mensajeError" class="error">Error en la validación.</p>
-    <p id="mensajeSuccess" class="success">Validando clave...</p>
-    <p class="footer">¿No tienes una clave?</p>
-    <p class="footer1"> Contáctanos:  <a href="mailto:atraccion_talento@mainbit.com.mx">atraccion_talento@mainbit.com.mx</a></p>
-  </div>
-<script>
-  function validarClave() {
-    const clave = document.getElementById("claveInput").value;
-    const errorMsg = document.getElementById("mensajeError");
-    const successMsg = document.getElementById("mensajeSuccess");
-
-    // Ocultar mensajes anteriores
-    errorMsg.style.display = "none";
-    successMsg.style.display = "block";
-    successMsg.innerText = "Validando clave...";
-
-    // Enviar solicitud al backend
-    fetch("https://mbt-app.vercel.app/api/validate", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ clave: clave })
-    })
-    .then(res => res.json())
-    .then(data => {
-      if (data.acceso && data.redirectUrl) {
-        document.cookie = "form_acceso=true; path=/; secure; SameSite=Strict";
-        window.location.href = data.redirectUrl;
+  <head>
+    <meta charset="UTF-8">
+    <title>Reclutamiento - Validación de Acceso</title>
+    <style>
+      body {
+        font-family: 'Segoe UI', sans-serif;
+        background: #f4f6f8;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
       }
-      else {
-        successMsg.style.display = "none";
-        errorMsg.innerText = data.error || "Clave incorrecta o no activa.";
-        errorMsg.style.display = "block";
+
+      .container {
+        background: white;
+        padding: 75px 40px;
+        border-radius: 25px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 400px;
+        position: relative;
+        overflow: hidden;
       }
-    })
-      .catch(err => {
-        successMsg.style.display = "none";
-        errorMsg.innerText = "Error en la conexión. Intenta más tarde.";
-        errorMsg.style.display = "block";
-        console.error("Error en fetch:", err);
-    });
-  }
-</script>
-</body>
+
+      .container img.logo {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 100px;
+        opacity: 75;
+      }
+
+      .container img.head {
+        align: justify;
+        width: 100%;
+        border: none;
+        opacity: 100;
+        margin-top: 10px;
+        margin: 0 auto;
+      }
+
+      directions {
+        margin-bottom: 10px;
+      }
+
+      input[type="password"] {
+        padding: 12px;
+        width: 220px;
+        text-align: center;
+        border-radius: 30px;
+        border: 1px solid #ccc;
+        margin-bottom: 20px;
+      }
+
+      button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 50px;
+        background: #0078d4;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .error {
+        color: red;
+        margin-top: 10px;
+        display: none;
+      }
+
+      .success {
+        color: green;
+        margin-top: 10px;
+        display: none;
+      }
+
+      .footer {
+        margin-top: 30px;
+        font-size: 12px;
+        color: #888;
+        margin-bottom: 5px;
+      }
+
+      .footer1 {
+        font-size: 12px;
+        color: #888;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <img src="Logo MBT Plus.png" alt="Mainbit Logo" class="logo">
+      <img src="Welcome.jpg" alt="Welcome" class="head">
+      <h2>Proceso de Reclutamiento</h2>
+      <p class="directions">Por favor, ingresa tu clave de acceso:</p>
+      <input type="password" id="claveInput" placeholder="Clave de acceso" />
+      <br />
+      <button onclick="validarClave()">Acceder al Formulario</button>
+      <p id="mensajeError" class="error">Error en la validación.</p>
+      <p id="mensajeSuccess" class="success">Validando clave...</p>
+      <p class="footer">¿No tienes una clave?</p>
+      <p class="footer1"> Contáctanos: <a href="mailto:atraccion_talento@mainbit.com.mx">atraccion_talento@mainbit.com.mx</a>
+      </p>
+    </div>
+    <script>
+      function validarClave() {
+        const clave = document.getElementById("claveInput").value;
+        const errorMsg = document.getElementById("mensajeError");
+        const successMsg = document.getElementById("mensajeSuccess");
+        // Ocultar mensajes anteriores
+        errorMsg.style.display = "none";
+        successMsg.style.display = "block";
+        successMsg.innerText = "Validando clave...";
+        // Enviar solicitud al backend
+        fetch("/api/validate", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            clave: document.getElementById("claveInput").value
+          }),
+        }).then((res) => res.json()).then((data) => {
+          if (data.acceso) {
+            // Establecer la cookie de acceso
+            document.cookie = "form_acceso=true; path=/; secure; SameSite=Strict";
+            // Redirigir al usuario a la URL proporcionada
+            window.location.href = data.redirigirA;
+          } else {
+            // Si no se puede acceder
+            alert(data.error || "Error al validar la clave.");
+          }
+        }).catch((err) => {
+          console.error("Error en la validación:", err);
+          alert("Error de conexión o respuesta inesperada.");
+        });
+      }
+    </script>
+  </body>
 </html>
