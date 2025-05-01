@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario de Reclutamiento</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    #mensaje {
+      text-align: center;
+      margin-top: 20%;
+      font-size: 1.5rem;
+      color: #333;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="mensaje">Verificando acceso...</div>
+
+  <script>
+    function tieneCookie(nombre) {
+      return document.cookie.split(';').some(c => c.trim().startsWith(nombre + '='));
+    }
+
+    if (tieneCookie('form_acceso')) {
+      document.body.innerHTML = ''; // Limpia la pantalla
+      const iframe = document.createElement('iframe');
+      iframe.src = "https://forms.office.com/r/vQgHcKLeni"; // TU LINK REAL
+      document.body.appendChild(iframe);
+    } else {
+      document.getElementById('mensaje').innerText = "Acceso denegado. No tienes permiso para ver este formulario.";
+    }
+  </script>
+</body>
+</html>
