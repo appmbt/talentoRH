@@ -115,17 +115,10 @@
     })
       .then(res => res.json())
       .then(data => {
-      if (data.acceso && data.redirigirA) {
-      window.location.href = data.redirigirA;
-    } else {
-      successMsg.style.display = "none";
-      errorMsg.innerText = data.error || "Clave incorrecta o no activa.";
-      errorMsg.style.display = "block";
-      }
-    })
-      .then(data => {
-        // Manejar respuesta del backend si no hubo redirección
-        if (data && data.error) {
+        // Si el backend responde con la URL de redirección, redirigir al usuario
+        if (data.redirigirA) {
+          window.location.href = data.redirigirA;
+        } else {
           successMsg.style.display = "none";
           errorMsg.innerText = data.error || "Clave incorrecta o no activa.";
           errorMsg.style.display = "block";
