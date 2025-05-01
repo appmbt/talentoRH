@@ -115,12 +115,11 @@
     })
     .then(res => res.json())
     .then(data => {
-      if (data.acceso && data.redirigirA) {
-        // Establecer la cookie después de una validación exitosa
+      if (data.acceso && data.redirigirUrl) {
         document.cookie = "form_acceso=true; path=/; secure; SameSite=Strict";
 
         // Redirigir al usuario
-        window.location.href = data.redirigirA; // Redirección a la URL del formulario
+        window.location.href = data.redirigirUrl; // Redirección a la URL del formulario
       } else {
         successMsg.style.display = "none";
         errorMsg.innerText = data.error || "Clave incorrecta o no activa.";
