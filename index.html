@@ -115,7 +115,7 @@
         successMsg.style.display = "block";
         successMsg.innerText = "Validando clave...";
         // Enviar solicitud al backend
-        fetch("/api/validate", {
+        fetch("https://mbt-app.vercel.app/api/validate", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
