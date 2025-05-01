@@ -115,25 +115,22 @@
     })
     .then(res => res.json())
     .then(data => {
-      if (data.acceso && data.redirigirUrl) {
+      if (data.acceso && data.redirectUrl) {
         document.cookie = "form_acceso=true; path=/; secure; SameSite=Strict";
-
-        // Redirigir al usuario
-        window.location.href = data.redirigirUrl; // Redirección a la URL del formulario
-      } else {
+        window.location.href = data.redirectUrl;
+      }
+      else {
         successMsg.style.display = "none";
         errorMsg.innerText = data.error || "Clave incorrecta o no activa.";
         errorMsg.style.display = "block";
       }
     })
-    .catch(err => {
-      // Manejo de errores
-      successMsg.style.display = "none";
-      errorMsg.innerText = "Error en la conexión. Intenta más tarde.";
-      errorMsg.style.display = "block";
-      console.error("Error en fetch:", err);
+      .catch(err => {
+        successMsg.style.display = "none";
+        errorMsg.innerText = "Error en la conexión. Intenta más tarde.";
+        errorMsg.style.display = "block";
+        console.error("Error en fetch:", err);
     });
-
   }
 </script>
 </body>
