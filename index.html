@@ -106,7 +106,7 @@
       </p>
     </div>
     <script>
-      function validarClave() {
+        function validarClave() {
         const clave = document.getElementById("claveInput").value;
         const errorMsg = document.getElementById("mensajeError");
         const successMsg = document.getElementById("mensajeSuccess");
@@ -125,6 +125,8 @@
           }),
         }).then((res) => res.json()).then((data) => {
           if (data.acceso) {
+            successMsg.style.display = "block";
+            successMsg.innerText = "Clave válida. Redirigiendo...";
             // Establecer la cookie de acceso
             document.cookie = "form_acceso=true; path=/; secure; SameSite=Strict";
             // Redirigir al usuario a la URL proporcionada
