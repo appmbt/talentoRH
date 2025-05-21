@@ -111,26 +111,40 @@
     const errorMsg = document.getElementById("mensajeError");
     const successMsg = document.getElementById("mensajeSuccess");
     
-    // Deshabilitar el botón y input mientras se procesa
+    // Deshabilitar controles
     const button = document.querySelector('button');
     button.disabled = true;
     claveInput.disabled = true;
     
-    // Mostrar mensaje de procesamiento
     errorMsg.style.display = "none";
     successMsg.style.display = "block";
     successMsg.innerText = "Validando clave...";
 
     try {
+      console.log('Iniciando validación...');
+      
       const response = await fetch("https://mbt-app.vercel.app/api/validate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Accept": "application/json"
         },
-        body: JSON.stringify({ clave: claveInput.value }),
+        body: JSON.stringify({ 
+          clave: claveInput.value.trim() 
+        }),
       });
 
+      console.log('Status:', response.status);
+      console.log('OK:', response.ok);
+
+      // Verificar si la respuesta es JSON válido
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        throw new Error("La respuesta no es JSON válido");
+      }
+
       const data = await response.json();
+      console.log('Respuesta:', data);
 
       if (response.ok && data.acceso) {
         successMsg.innerText = "Clave válida. Redirigiendo...";
@@ -138,27 +152,46 @@
         window.location.href = data.redirigirA;
       } else {
         errorMsg.style.display = "block";
-        errorMsg.innerText = data.error || "Clave inválida";
+        errorMsg.innerText = data.error || data.mensaje || "Clave inválida";
         successMsg.style.display = "none";
       }
     } catch (err) {
-      console.error("Error:", err);
+      console.error("Error detallado:", {
+        message: err.message,
+        name: err.name,
+        stack: err.stack
+      });
+      
       errorMsg.style.display = "block";
-      errorMsg.innerText = "Error de conexión. Intente más tarde.";
+      errorMsg.innerText = `Error: ${err.message}. Por favor, intente más tarde.`;
       successMsg.style.display = "none";
     } finally {
-      // Re-habilitar controles
       button.disabled = false;
       claveInput.disabled = false;
     }
   }
 
-  // Agregar evento para enviar con Enter
+  // Evento Enter
   document.getElementById("claveInput").addEventListener("keypress", function(e) {
     if (e.key === "Enter") {
       validarClave();
     }
   });
+
+  // Agregar botón para probar conexión
+  const testButton = document.createElement('button');
+  testButton.innerHTML = 'Probar Conexión';
+  testButton.style.marginTop = '10px';
+  testButton.onclick = async () => {
+    try {
+      const response = await fetch('https://mbt-app.vercel.app/api/health');
+      const data = await response.json();
+      alert(`Estado del servidor: ${JSON.stringify(data, null, 2)}`);
+    } catch (err) {
+      alert(`Error de conexión: ${err.message}`);
+    }
+  };
+  document.querySelector('.container').appendChild(testButton);
 </script>
   </body>
 </html>
